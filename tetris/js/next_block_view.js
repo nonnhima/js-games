@@ -19,6 +19,6 @@ function changeNextBlockView() {
     const next_block_view_class = block_types[random];
     // 「NEXT BLOCK」のブロックに次のブロックを出力する
     $.each(next_block_position[random], (index, val) => {
-        $('[data-pos="' + val + '"]').attr('class', next_block_view_class);
+        $(`[data-pos="${val}"]`).attr('class', next_block_view_class);
     });
 }

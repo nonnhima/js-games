@@ -122,7 +122,7 @@ function checkValidPosition(next_default_position, new_lotation_index = lotation
             result = false;
             return false;
         }
-        const next_position_block = $('[data-position="' + next_position_val + '"]');
+        const next_position_block = $(`[data-position="${next_position_val}"]`);
         if (next_position_block.attr('data-active') === '0' && !next_position_block.hasClass('default')) {
             // 移動先に、すでにアクティブ状態ではないブロックが置かれていた場合
             result = false;
@@ -140,7 +140,7 @@ function delate() {
         let can_delate = true;
 
         for (let row = 1 + 100 * column; row % 100 <= max_width; row++) {
-            const delate_check_block = $('[data-position="' + row + '"]');
+            const delate_check_block = $(`[data-position="${row}"]`);
             if (delate_check_block.hasClass('default') || delate_check_block.attr('data-active') === '1') {
                 can_delate = false;
             }
@@ -150,7 +150,7 @@ function delate() {
         }
         const can_delate_array = Array.from(Array(max_width)).map((v, i) => i + 1 + 100 * column);
         $.each(can_delate_array, (index, value) => {
-            const delate_block = $('[data-position="' + value + '"]');
+            const delate_block = $(`[data-position="${value}"]`);
             // これから行が削除されることが分かりやすいように、行の色を変える
             delate_block.addClass('will-delate');
         });
@@ -172,7 +172,7 @@ function delate() {
             for (let drop_column = column - 1; drop_column >= 1; drop_column--) {
                 let empty_count = 0;
                 for (let drop_row = 1 + 100 * drop_column; drop_row % 100 <= max_width; drop_row++) {
-                    const drop_check_block = $('[data-position="' + drop_row + '"]');
+                    const drop_check_block = $(`[data-position="${drop_row}"]`);
                     if (drop_check_block.attr('data-active') === '1' || drop_check_block.hasClass('default')) {
                         empty_count++;
                         continue;
@@ -181,7 +181,7 @@ function delate() {
                     // そのブロックをdefaultにする
                     drop_check_block.attr('class', 'default');
                     // 1つ下のブロックに移動させる
-                    $('[data-position="' + (drop_row + 100) + '"]').attr('class', this_class);
+                    $(`[data-position="${drop_row + 100}"]`).attr('class', this_class);
                 }
                 if (empty_count === max_width) {
                     // 横1行すべてdefaultだった場合、それより上の行の移動処理は行わない
@@ -208,8 +208,8 @@ function nextBlockActive() {
 
     // ブロックの移動先にクラスを付与し、アクティブ状態にする
     $.each(position[active_class][lotation_index], (index, val) => {
-        $('[data-position="' + (default_position + val) + '"]').attr('class', active_class);
-        $('[data-position="' + (default_position + val) + '"]').attr('data-active', '1');
+        $(`[data-position="${default_position + val}"]`).attr('class', active_class);
+        $(`[data-position="${default_position + val}"]`).attr('data-active', '1');
     });
 }
 
@@ -301,7 +301,7 @@ function displayMaxBottomPosition() {
 
     // ブロックを置くことができる最も低いpositionを白い外枠で囲み、表示する
     $.each(position[active_class][lotation_index], (index, val) => {
-        $('[data-position="' + (max_bottom_default_position + val) + '"]').addClass('max_bottom');
+        $(`[data-position="${max_bottom_default_position + val}"]`).addClass('max_bottom');
     });
 }
 

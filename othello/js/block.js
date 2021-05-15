@@ -33,7 +33,7 @@ $(() => {
         if (player_skip || enemy_skip) {
             // スキップカウントを初期化
             player_skip = 0, enemy_skip = 0;
-            alert(before_color + 'のターンで石を置くことができないため' + next_color + 'のターンにスキップします。\n\nPlay passes back to ' + next_color + ' because ' + before_color + ' cannot make a valid move.');
+            alert(`${before_color}のターンで石を置くことができないため${next_color}のターンにスキップします。\n\nPlay passes back to ${next_color} because ${before_color} cannot make a valid move.`);
         }
         // 敵のターンになった場合、敵のターンを実行する
         if (color === enemy_color) {
@@ -119,7 +119,7 @@ $(() => {
                  **/
                 for (i = 0; i < check_array.length; i++) {
                     //配置済み石を取得
-                    const placed_stone = $('[data-index~="' + check_array[i] + '"]');
+                    const placed_stone = $(`[data-index~="${check_array[i]}"]`);
                     if (i === 0) {
                         //１つ目のマスの処理
                         if (placed_stone.attr('class') === 'empty' || placed_stone.attr('class') === color) {
@@ -151,7 +151,7 @@ $(() => {
         if (color === player_color) {
             // 石をおける範囲を黄色く表示する
             $.each(can_set_stone, (index, val) => {
-                $('[data-index~="' + val + '"]').attr('class', 'empty_hint');
+                $(`[data-index~="${val}"]`).attr('class', 'empty_hint');
             });
         }
     }
@@ -165,7 +165,7 @@ $(() => {
         const random_num = Math.floor(Math.random() * can_set_stone.length);
         const this_index = can_set_stone[random_num];
         // 抽出された場所の石を反転させる
-        $('[data-index~="' + this_index + '"]').attr('class', enemy_color);
+        $(`[data-index~="${this_index}"]`).attr('class', enemy_color);
 
         // ランダムに抽出した場所が、can_set_stoneの何番目に入っているかを取得し、surround_indexiesにセットする
         const surround_indexies = [];
@@ -179,7 +179,7 @@ $(() => {
         // 挟まれた内側の石の色をすべて反転する
         $.each(surround_indexies, (i, num) => {
             $.each(sround_stone_array[num], (index, val) => {
-                $('[data-index~="' + val + '"]').attr('class', enemy_color);
+                $(`[data-index~="${val}"]`).attr('class', enemy_color);
             });
         });
         // プレイヤーのターンに切り替える
@@ -235,7 +235,7 @@ $(() => {
         // 挟まれた内側の石の色をすべて反転する
         $.each(surround_indexies, (i, num) => {
             $.each(sround_stone_array[num], (index, val) => {
-                $('[data-index~="' + val + '"]').attr('class', player_color);
+                $(`[data-index~="${val}"]`).attr('class', player_color);
             });
         });
         //　クリックしたところにオセロを置く

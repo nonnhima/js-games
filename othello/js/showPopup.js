@@ -13,7 +13,7 @@ function showConglatsPopup() {
     const popup = $('#won_popup');
     const winner_color = $('.white').length > $('.black').length ? 'White' : 'Black';
     $('.winner_color').text(winner_color);
-    $('.winner_img').children('img').attr('src', './img/' + winner_color.toLowerCase() + '.png');
+    $('.winner_img').children('img').attr('src', `./img/${winner_color.toLowerCase()}.png`);
     popup.addClass('is-show');
     closePopUp($('.js-black-bg'), popup);
     closePopUp($('.js-close-btn'), popup);

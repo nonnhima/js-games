@@ -75,7 +75,7 @@ $(() => {
          * ゲーム終了後、最も多くクリックした猫の画像を表示する
          */
         const most_clicked_value = checkMostValue(clicked_card_index);
-        $('#most_clicked_img').attr('src', './img/img_' + most_clicked_value + '.png');
+        $('#most_clicked_img').attr('src', `./img/img_${most_clicked_value}.png`);
     }
 
     // カードをクリックしたときの挙動

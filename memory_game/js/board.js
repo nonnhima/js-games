@@ -18,7 +18,7 @@ $(() => {
 
     // 画像をシャッフルして表示する
     $.each(shuffle(numbers), (index, val) => {
-        $('div.flip-boards').append('<div class="board"><div class="front"></div><div class="flipped"><img src="./img/img_' + val + '.png" id="' + val + '"></div></div>');
+        $('div.flip-boards').append(`<div class="board"><div class="front"></div><div class="flipped"><img src="./img/img_${val}.png" id="${val}"></div></div>`);
     });
 
     selectPlayerPopup();
