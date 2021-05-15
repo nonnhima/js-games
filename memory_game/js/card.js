@@ -1,11 +1,11 @@
-$(function() {
+$(() => {
     // クリック回数の初期設定
-    var click_count = 0;
+    let click_count = 0;
     // クリックしたカードのidを格納する配列の初期設定。
     // ゲーム終了後に最も多くクリックした画像を表示するのに利用する。
-    var clicked_card_index = [];
+    const clicked_card_index = [];
     // ペアが揃った回数の初期設定
-    var pair_count = 0;
+    let pair_count = 0;
 
     function turnToFront() {
         /*
@@ -21,15 +21,16 @@ $(function() {
         /*
          * ゲーム終了後、クリック回数の成績(A,B,C)を表示する
          */
+         let score_text;
         $('.click_count').text(click_count);
         if (click_count < 50) {
-            var score_text = 'S';
+            score_text = 'S';
         } else if (50 <= click_count && click_count < 60) {
-            var score_text = 'A';
+            score_text = 'A';
         } else if (60 <= click_count && click_count < 75) {
-            var score_text = 'B';
+            score_text = 'B';
         } else {
-            var score_text = 'C';
+            score_text = 'C';
         }
         $('.click_score').text(score_text);
         $('.click_score').addClass(score_text);
@@ -55,15 +56,15 @@ $(function() {
         /*
          * 最も多くクリックした猫の画像のidを返す
          */
-        var counter = []
-        for (var i = 0; i <= total_pair_count; i++) {
+        const counter = [];
+        for (let i = 0; i <= total_pair_count; i++) {
             counter.push(0);
         }
-        $.each(array, function(index, value) {
+        $.each(array, (index, value) => {
             counter[value]++
         });
-        var max_count = Math.max.apply([], Object.values(counter));
-        var result = Object.keys(counter).filter(function(k) {
+        const max_count = Math.max.apply([], Object.values(counter));
+        const result = Object.keys(counter).filter(k => {
             return counter[k] === max_count
         })[0];
         return result
@@ -73,7 +74,7 @@ $(function() {
         /*
          * ゲーム終了後、最も多くクリックした猫の画像を表示する
          */
-        var most_clicked_value = checkMostValue(clicked_card_index);
+        const most_clicked_value = checkMostValue(clicked_card_index);
         $('#most_clicked_img').attr('src', './img/img_' + most_clicked_value + '.png');
     }
 
@@ -84,9 +85,9 @@ $(function() {
             return;
         }
         // 1回目にクリックしたカード
-        var clicked_card = $('div .board.clicked');
-        var clicked_card_id = clicked_card.find('img').attr('id');
-        var this_id = $(this).find('img').attr('id');
+        const clicked_card = $('div .board.clicked');
+        const clicked_card_id = clicked_card.find('img').attr('id');
+        const this_id = $(this).find('img').attr('id');
         // クリックしたカードのidをclicked_card_indexに格納
         clicked_card_index.push(this_id);
         click_count++;

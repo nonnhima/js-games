@@ -1,10 +1,10 @@
 // 時刻の変数宣言（スタートした時刻、ストップした時刻、経過時間）
-var startTime, nowTime, addTime;
+let startTime, nowTime, addTime;
 // 時間関係の変数の宣言(ミリ秒、100分の1秒、秒、分)
-var millisec, sec100, sec, min;
+let millisec, sec100, sec, min;
 // タイムゾーンのオフセット値
-var gmt;
-var timerId; // タイマー
+let gmt;
+let timerId; // タイマー
 
 function startTimer() {
     /*
@@ -30,8 +30,8 @@ function drawTime() {
     /*
      * 時間を表示する
      */
-    var strTime = "";
-    var strSec100, strSec, strMin, strHour;
+    let strTime = "";
+    let strSec100, strSec, strMin, strHour;
 
     // 数値を文字に変換及び2桁表示設定
     strSec100 = "" + sec100;
@@ -55,14 +55,15 @@ function drawTimeScore() {
     /*
      * ゲーム終了後、経過時間の成績(A,B,C)を表示する
      */
+     let score_text;
     if (min === 0 && sec < 50) {
-        var score_text = 'S';
+        score_text = 'S';
     } else if (min === 0 && 50 <= sec) {
-        var score_text = 'A';
+        score_text = 'A';
     } else if (min === 1 && sec < 30) {
-        var score_text = 'B';
+        score_text = 'B';
     } else {
-        var score_text = 'C';
+        score_text = 'C';
     }
     $('.time_score').text(score_text);
     $('.time_score').addClass(score_text);

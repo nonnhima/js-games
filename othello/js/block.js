@@ -1,15 +1,13 @@
-$(function() {
-    var next_color, before_color, player_color, enemy_color;
+$(() => {
+    let next_color, before_color, player_color, enemy_color;
     // 石のおける範囲を取得するためのリストを宣言
-    var can_set_stone = [],
-        sround_stone_array = [];
+    let can_set_stone = [], sround_stone_array = [];
     // 待ち時間の設定
-    var settime_seconds = 800;
+    let settime_seconds = 800;
     // スキップカウントの初期設定
-    var player_skip = 0,
-        enemy_skip = 0;
+    let player_skip = 0, enemy_skip = 0;
     // ゲームが終了したかどうかの判定の初期設定
-    var game_set = false;
+    let game_set = false;
 
     // 先攻/後攻の選択ポップアップを表示
     selectPlayerPopup();
@@ -72,16 +70,9 @@ $(function() {
 
         // 空のマスのうち、実際におくことができる範囲を取得
         $('div.empty').each(function(index) {
-            var this_empty_index = $(this).data('index');
+            const this_empty_index = $(this).data('index');
             // 左右上下斜めの範囲を取得するためのリストを宣言
-            var left_max = [],
-                left_top_max = [],
-                top_max = [],
-                right_top_max = [],
-                right_max = [],
-                right_bottom_max = [],
-                bottom_max = [],
-                left_bottom_max = [];
+            const left_max = [], left_top_max = [], top_max = [], right_top_max = [], right_max = [], right_bottom_max = [], bottom_max = [], left_bottom_max = [];
 
             // クリックしたブロックの上下左右斜めの範囲のindexを取得する
             getMaxRange(left_max, -1);
@@ -110,8 +101,8 @@ $(function() {
                  * クリックしたブロックの上下左右斜めの範囲のindexを取得して、
                  * それぞれのArrayに格納する。
                  **/
-                for (var i = 1; i < 6; i++) {
-                    var surround_index = this_empty_index + i * num;
+                for (let i = 1; i < 6; i++) {
+                    const surround_index = this_empty_index + i * num;
                     if (7 < surround_index / 10 || surround_index / 10 < 1 || surround_index % 10 < 1 || 6 < surround_index % 10) {
                         break;
                     }
@@ -128,7 +119,7 @@ $(function() {
                  **/
                 for (i = 0; i < check_array.length; i++) {
                     //配置済み石を取得
-                    var placed_stone = $('[data-index~="' + check_array[i] + '"]');
+                    const placed_stone = $('[data-index~="' + check_array[i] + '"]');
                     if (i === 0) {
                         //１つ目のマスの処理
                         if (placed_stone.attr('class') === 'empty' || placed_stone.attr('class') === color) {
@@ -145,11 +136,11 @@ $(function() {
                             // 自分の色に挟まれていれば、OK判定
                             can_set_stone.push(this_empty_index)
                             // 挟まれた内側の石の色を反転する
-                            var sround_stone = [];
+                            const sround_stone = [];
                             while (--i >= 0) {
                                 sround_stone.push(check_array[i]);
                             }
-                            var sround_index = sround_stone_array.length || 0;
+                            const sround_index = sround_stone_array.length || 0;
                             sround_stone_array[sround_index] = sround_stone;
                             break;
                         }
@@ -159,7 +150,7 @@ $(function() {
         });
         if (color === player_color) {
             // 石をおける範囲を黄色く表示する
-            $.each(can_set_stone, function(index, val) {
+            $.each(can_set_stone, (index, val) => {
                 $('[data-index~="' + val + '"]').attr('class', 'empty_hint');
             });
         }
@@ -171,23 +162,23 @@ $(function() {
          * 敵のターンを実行する
          **/
         // ランダムにindexを抽出する
-        var random_num = Math.floor(Math.random() * can_set_stone.length)
-        var this_index = can_set_stone[random_num];
+        const random_num = Math.floor(Math.random() * can_set_stone.length);
+        const this_index = can_set_stone[random_num];
         // 抽出された場所の石を反転させる
         $('[data-index~="' + this_index + '"]').attr('class', enemy_color);
 
         // ランダムに抽出した場所が、can_set_stoneの何番目に入っているかを取得し、surround_indexiesにセットする
-        var surround_indexies = [];
-        for (var i = -1; i < can_set_stone.length - 1; i++) {
-            var result = can_set_stone.indexOf(this_index, i + 1);
+        const surround_indexies = [];
+        for (let i = -1; i < can_set_stone.length - 1; i++) {
+            const result = can_set_stone.indexOf(this_index, i + 1);
             if (result === -1) {
                 break;
             }
             surround_indexies.push(result);
         }
         // 挟まれた内側の石の色をすべて反転する
-        $.each(surround_indexies, function(i, num) {
-            $.each(sround_stone_array[num], function(index, val) {
+        $.each(surround_indexies, (i, num) => {
+            $.each(sround_stone_array[num], (index, val) => {
                 $('[data-index~="' + val + '"]').attr('class', enemy_color);
             });
         });
@@ -200,8 +191,7 @@ $(function() {
          * @param {Boolean} gameSet ゲーム終了かどうか
          * スコアのカウントを更新し、ゲームが終了した場合はポップアップを表示する
          **/
-        var white_count = $('.white').length,
-            black_count = $('.black').length;
+        const white_count = $('.white').length, black_count = $('.black').length;
         $('.cnt_white').text(white_count);
         $('.cnt_black').text(black_count);
         // ゲームが終了したらポップアップを表示する
@@ -216,7 +206,7 @@ $(function() {
         $('#new_game').removeClass('is-show');
         player_color = $(this).data('player-color')
         enemy_color = player_color === 'white' ? 'black' : 'white'
-        var player_color_text = player_color === 'white' ? '白' : '黒'
+        const player_color_text = player_color === 'white' ? '白' : '黒';
         if (player_color === 'white') {
             getReady(player_color);
             return;
@@ -228,23 +218,23 @@ $(function() {
 
     // ブロックをクリックしたとき
     $('[id="block"]').click(function() {
-        var this_index = $(this).data('index');
+        const this_index = $(this).data('index');
         // クリックしたブロックに石が置けない場合は、何もしない
         if ($(this).attr('class') !== 'empty_hint' || !can_set_stone.includes(this_index)) {
             return;
         }
         // クリックした場所がcan_set_stoneの何番目に入っているかを取得する
-        var surround_indexies = [];
-        for (var i = -1; i < can_set_stone.length - 1; i++) {
-            var result = can_set_stone.indexOf(this_index, i + 1);
+        const surround_indexies = [];
+        for (let i = -1; i < can_set_stone.length - 1; i++) {
+            const result = can_set_stone.indexOf(this_index, i + 1);
             if (result === -1) {
                 break;
             }
             surround_indexies.push(result);
         }
         // 挟まれた内側の石の色をすべて反転する
-        $.each(surround_indexies, function(i, num) {
-            $.each(sround_stone_array[num], function(index, val) {
+        $.each(surround_indexies, (i, num) => {
+            $.each(sround_stone_array[num], (index, val) => {
                 $('[data-index~="' + val + '"]').attr('class', player_color);
             });
         });

@@ -1,46 +1,46 @@
 /* 利用する定義をまとめたファイル */
 
 // ブロックのスタート地点
-var default_position = 207;
+let default_position = 207;
 // アクティブ状態（動かせるブロック）のクラス名
-var active_class;
+let active_class;
 // ブロックを置くことができる最も低いポジション（data-position）
-var max_bottom_default_position;
+let max_bottom_default_position;
 // 列を削除した回数
-var goal_times = 0;
+let goal_times = 0;
 
 // 棒型
-var stick_0_position = [-100, 0, 100];
-var stick_90_position = [-1, 0, 1];
-var stick_180_position = [-100, 0, 100];
-var stick_270_position = [-1, 0, 1];
+const stick_0_position = [-100, 0, 100];
+const stick_90_position = [-1, 0, 1];
+const stick_180_position = [-100, 0, 100];
+const stick_270_position = [-1, 0, 1];
 
 // L字型
-var L_0_position = [-102, -2, -1, 0, 1];
-var L_90_position = [-100, 0, 100, 199, 200];
-var L_180_position = [-1, 0, 1, 2, 102];
-var L_270_position = [-200, -199, -100, 0, 100];
+const L_0_position = [-102, -2, -1, 0, 1];
+const L_90_position = [-100, 0, 100, 199, 200];
+const L_180_position = [-1, 0, 1, 2, 102];
+const L_270_position = [-200, -199, -100, 0, 100];
 
 // 親指型
-var thumb_0_position = [-100, -1, 0, 99, 100];
-var thumb_90_position = [-1, 0, 1, 100, 101];
-var thumb_180_position = [-100, -99, 0, 1, 100];
-var thumb_270_position = [-101, -100, -1, 0, 1];
+const thumb_0_position = [-100, -1, 0, 99, 100];
+const thumb_90_position = [-1, 0, 1, 100, 101];
+const thumb_180_position = [-100, -99, 0, 1, 100];
+const thumb_270_position = [-101, -100, -1, 0, 1];
 
 // ヘビ型
-var snake_0_position = [-101, -1, 0, 100];
-var snake_90_position = [-100, -99, -1, 0];
-var snake_180_position = [-101, -1, 0, 100];
-var snake_270_position = [-100, -99, -1, 0];
+const snake_0_position = [-101, -1, 0, 100];
+const snake_90_position = [-100, -99, -1, 0];
+const snake_180_position = [-101, -1, 0, 100];
+const snake_270_position = [-100, -99, -1, 0];
 
 // 凸型
-var convex_0_position = [0, -99, 1, 101];
-var convex_90_position = [-101, -100, -99, 0];
-var convex_180_position = [-101, -1, 0, 99];
-var convex_270_position = [0, 99, 100, 101];
+const convex_0_position = [0, -99, 1, 101];
+const convex_90_position = [-101, -100, -99, 0];
+const convex_180_position = [-101, -1, 0, 99];
+const convex_270_position = [0, 99, 100, 101];
 
 // ブロックの全タイプ
-var block_types = [
+const block_types = [
     'stick',
     'L',
     'thumb',
@@ -49,7 +49,7 @@ var block_types = [
 ];
 
 // ローテーションのindex（0～3）のデフォルト値の設定
-var lotation_index = 0
+let lotation_index = 0;
 
 let stick_position = [
     stick_0_position,
@@ -102,4 +102,4 @@ let adjust_position = {
 }
 
 // ゲームオーバー状態
-var is_game_over = false;
+let is_game_over = false;

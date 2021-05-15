@@ -1,5 +1,5 @@
 // 初期値0（必ず最初はstickが出る）
-var random = 0;
+let random = 0;
 
 let next_block_position = [
     [24, 34, 44],
@@ -16,9 +16,9 @@ function changeNextBlockView() {
     // 「NEXT BLOCK」のブロックをdefaultにもどす
     $('table#next').find('td').attr('class', 'default');
 
-    var next_block_view_class = block_types[random];
+    const next_block_view_class = block_types[random];
     // 「NEXT BLOCK」のブロックに次のブロックを出力する
-    $.each(next_block_position[random], function(index, val) {
+    $.each(next_block_position[random], (index, val) => {
         $('[data-pos="' + val + '"]').attr('class', next_block_view_class);
     });
 }

@@ -113,16 +113,16 @@ function checkValidPosition(next_default_position, new_lotation_index = lotation
      * @param {number} new_lotation_index ローテーションのindex（0～3）。指定がない場合、lotation_indexを使う
      * 与えられた条件で、ブロックを置くことができるか判定を変えす。移動先にブロックを置くことができる場合は、Trueを返す。
      **/
-    var result = true;
-    $.each(position[active_class][new_lotation_index], function(index, val) {
-        var next_position_val = next_default_position + val
+    let result = true;
+    $.each(position[active_class][new_lotation_index], (index, val) => {
+        const next_position_val = next_default_position + val;
         if (next_position_val % 100 <= 0 || max_width + 1 <= next_position_val % 100 ||
             Math.floor(next_position_val / 100) <= 0 || max_height < Math.floor(next_position_val / 100)) {
             // 移動先のブロックが、ボードの範囲外だった場合
             result = false;
             return false;
         }
-        var next_position_block = $('[data-position="' + next_position_val + '"]')
+        const next_position_block = $('[data-position="' + next_position_val + '"]');
         if (next_position_block.attr('data-active') === '0' && !next_position_block.hasClass('default')) {
             // 移動先に、すでにアクティブ状態ではないブロックが置かれていた場合
             result = false;
@@ -136,11 +136,11 @@ function delate() {
     /**
      * ブロックの削除処理。
      **/
-    for (var column = 1; column <= max_height; column++) {
-        var can_delate = true;
+    for (let column = 1; column <= max_height; column++) {
+        let can_delate = true;
 
-        for (var row = 1 + 100 * column; row % 100 <= max_width; row++) {
-            var delate_check_block = $('[data-position="' + row + '"]');
+        for (let row = 1 + 100 * column; row % 100 <= max_width; row++) {
+            const delate_check_block = $('[data-position="' + row + '"]');
             if (delate_check_block.hasClass('default') || delate_check_block.attr('data-active') === '1') {
                 can_delate = false;
             }
@@ -148,9 +148,9 @@ function delate() {
         if (!can_delate) {
             continue;
         }
-        var can_delate_array = Array.from(Array(max_width)).map((v, i) => i + 1 + 100 * column)
-        $.each(can_delate_array, function(index, value) {
-            var delate_block = $('[data-position="' + value + '"]');
+        const can_delate_array = Array.from(Array(max_width)).map((v, i) => i + 1 + 100 * column);
+        $.each(can_delate_array, (index, value) => {
+            const delate_block = $('[data-position="' + value + '"]');
             // これから行が削除されることが分かりやすいように、行の色を変える
             delate_block.addClass('will-delate');
         });
@@ -169,15 +169,15 @@ function delate() {
             $('.will-delate').attr('class', 'default');
 
             // 上にあるブロックを下に移動させる
-            for (var drop_column = column - 1; drop_column >= 1; drop_column--) {
-                var empty_count = 0;
-                for (var drop_row = 1 + 100 * drop_column; drop_row % 100 <= max_width; drop_row++) {
-                    var drop_check_block = $('[data-position="' + drop_row + '"]');
+            for (let drop_column = column - 1; drop_column >= 1; drop_column--) {
+                let empty_count = 0;
+                for (let drop_row = 1 + 100 * drop_column; drop_row % 100 <= max_width; drop_row++) {
+                    const drop_check_block = $('[data-position="' + drop_row + '"]');
                     if (drop_check_block.attr('data-active') === '1' || drop_check_block.hasClass('default')) {
                         empty_count++;
                         continue;
                     }
-                    var this_class = drop_check_block.attr('class');
+                    const this_class = drop_check_block.attr('class');
                     // そのブロックをdefaultにする
                     drop_check_block.attr('class', 'default');
                     // 1つ下のブロックに移動させる
@@ -207,7 +207,7 @@ function nextBlockActive() {
     $('[data-active="1"]').attr('data-active', '0');
 
     // ブロックの移動先にクラスを付与し、アクティブ状態にする
-    $.each(position[active_class][lotation_index], function(index, val) {
+    $.each(position[active_class][lotation_index], (index, val) => {
         $('[data-position="' + (default_position + val) + '"]').attr('class', active_class);
         $('[data-position="' + (default_position + val) + '"]').attr('data-active', '1');
     });
@@ -218,7 +218,7 @@ function startGame() {
      * ゲームスタート時の処理。
      **/
     // 棒を描く処理
-    var drawNewBlockFunction = setInterval(function() {
+    const drawNewBlockFunction = setInterval(() => {
         drawNewBlock();
         if (is_game_over) {
             clearInterval(drawNewBlockFunction);
@@ -226,7 +226,7 @@ function startGame() {
     }, 100); // 0.1秒ごとに更新
 
     // active状態のブロックを一つ下に下げる処理
-    var dropFunction = setInterval(function() {
+    const dropFunction = setInterval(() => {
         drop(default_position + 100);
         if (is_game_over) {
             clearInterval(dropFunction);
@@ -234,7 +234,7 @@ function startGame() {
     }, 1000); // 1秒ごとに更新
 
     // 横一行にブロックが揃ったら、行を消す処理
-    var delateFunction = setInterval(function() {
+    const delateFunction = setInterval(() => {
         delate();
         if (is_game_over) {
             clearInterval(delateFunction);
@@ -242,7 +242,8 @@ function startGame() {
     }, 500); // 0.5秒ごとに更新
 
     window.onkeydown = (e) => {
-        var key_code = e.keyCode
+        const key_code = e.keyCode;
+        let new_lotation_index;
         if (key_code === 37) {
             // ←左方向
             moveToDirection('left');
@@ -254,7 +255,7 @@ function startGame() {
             drop(max_bottom_default_position);
         } else if (key_code === 188) {
             // ＜左回転
-            var new_lotation_index = lotation_index + 1;
+            new_lotation_index = lotation_index + 1;
             if (4 <= new_lotation_index) {
                 // new_lotation_indexが4以上になる場合、new_lotation_indexを最小値（0）にする
                 new_lotation_index = 0;
@@ -262,7 +263,7 @@ function startGame() {
             rotate(new_lotation_index);
         } else if (key_code === 190) {
             // ＞右回転
-            var new_lotation_index = lotation_index - 1;
+            new_lotation_index = lotation_index - 1;
             if (new_lotation_index < 0) {
                 // new_lotation_indexが0未満になる場合、new_lotation_indexを最大値（3）にする
                 new_lotation_index = 3;
@@ -280,30 +281,32 @@ function displayMaxBottomPosition() {
     $('.max_bottom').removeClass('max_bottom');
 
     // 現在のブロックのtypeで、最も底辺のポジションを取得
-    var max_bottom_position = Math.max(...position[active_class][lotation_index]);
+    const max_bottom_position = Math.max(...position[active_class][lotation_index]);
 
-    for (var i = default_position + 100; i < max_height * 100 + max_width; i += 100) {
+
+    for (let i = default_position + 100; i < max_height * 100 + max_width; i += 100) {
         if (!checkValidPosition(i)) {
-            // 実際に置けるのはiの1行上のため、ここで100を引く
-            i -= 100;
+            // 実際に置けるのはiの1行上のため、iから100を引き
+            // max_bottom_default_positionを更新してbreakする
+            max_bottom_default_position = i - 100;
             break;
         }
         if (Math.floor((i + max_bottom_position) / 100) === max_height) {
-            // ブロックが一部が最も低い行に到達した場合は、breakする
+            // ブロックが一部が最も低い行に到達した場合は、
+            // max_bottom_default_positionを更新してbreakする
+            max_bottom_default_position = i;
             break;
         }
     }
-    // max_bottom_default_positionを更新する
-    max_bottom_default_position = i;
 
     // ブロックを置くことができる最も低いpositionを白い外枠で囲み、表示する
-    $.each(position[active_class][lotation_index], function(index, val) {
+    $.each(position[active_class][lotation_index], (index, val) => {
         $('[data-position="' + (max_bottom_default_position + val) + '"]').addClass('max_bottom');
     });
 }
 
 // 起動時処理
-$(function() {
+$(() => {
     startGame();
     startTimer();
 });
