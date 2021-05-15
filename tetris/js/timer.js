@@ -1,31 +1,3 @@
-// 時刻の変数宣言（スタートした時刻、ストップした時刻、経過時間）
-let startTime, nowTime, addTime;
-// 時間関係の変数の宣言(ミリ秒、100分の1秒、秒、分)
-let millisec, sec100, sec, min;
-// タイムゾーンのオフセット値
-let gmt;
-let timerId;
-
-function startTimer() {
-    /**
-     * タイマーのリセット
-     **/
-    addTime = 0;
-    millisec = sec100 = sec = min = hour = 0;
-    // 戻り値は分のため60で割る
-    gmt = new Date().getTimezoneOffset() / 60;
-    timerId = setTimeout(runTimer, 10);
-    // スタート時刻を設定（タイマーが進んでいれば加算）
-    startTime = new Date().getTime();
-    addTime = (min * 60 * 1000 + sec * 1000 + millisec);
-    startTime -= addTime;
-}
-
-function stopTimer() {
-    clearTimeout(timerId);
-    drawTime();
-}
-
 function drawTime() {
     /**
      * 時間を表示する
@@ -49,22 +21,4 @@ function drawTime() {
     // 表示形式を設定
     strTime = `${strMin}:${strSec}:${strSec100}`;
     $('.timer').text(strTime);
-}
-
-function runTimer() {
-    /**
-     * 時間を計測する
-     **/
-    // スタートからの差分をとる
-    nowTime = new Date().getTime();
-    diff = new Date(nowTime - startTime);
-    // ミリ秒、100分の1秒、秒、分を設定
-    millisec = diff.getMilliseconds();
-    sec100 = Math.floor(millisec / 10);
-    sec = diff.getSeconds();
-    min = diff.getMinutes();
-
-    // 時間を表示する
-    drawTime();
-    timerId = setTimeout(runTimer, 10);
 }
