@@ -1,3 +1,5 @@
+import {startTimer, stopTimer} from '../../timer.js';
+
 function drawNewBlock() {
     /**
      * 新しいブロックを出力する。

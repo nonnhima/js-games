@@ -1,5 +1,10 @@
 /* 利用する定義をまとめたファイル */
 
+// 縦22マス
+const max_height = 22;
+// 横12マス
+const max_width = 12;
+
 // ブロックのスタート地点
 let default_position = 207;
 // アクティブ状態（動かせるブロック）のクラス名
@@ -9,31 +14,31 @@ let max_bottom_default_position;
 // 列を削除した回数
 let goal_times = 0;
 
-// 棒型
+// 棒型 (stick)
 const stick_0_position = [-100, 0, 100];
 const stick_90_position = [-1, 0, 1];
 const stick_180_position = [-100, 0, 100];
 const stick_270_position = [-1, 0, 1];
 
-// L字型
+// L字型 (L)
 const L_0_position = [-102, -2, -1, 0, 1];
 const L_90_position = [-100, 0, 100, 199, 200];
 const L_180_position = [-1, 0, 1, 2, 102];
 const L_270_position = [-200, -199, -100, 0, 100];
 
-// 親指型
+// 親指型 (thumb)
 const thumb_0_position = [-100, -1, 0, 99, 100];
 const thumb_90_position = [-1, 0, 1, 100, 101];
 const thumb_180_position = [-100, -99, 0, 1, 100];
 const thumb_270_position = [-101, -100, -1, 0, 1];
 
-// ヘビ型
+// ヘビ型 (snake)
 const snake_0_position = [-101, -1, 0, 100];
 const snake_90_position = [-100, -99, -1, 0];
 const snake_180_position = [-101, -1, 0, 100];
 const snake_270_position = [-100, -99, -1, 0];
 
-// 凸型
+// 凸型 (convex)
 const convex_0_position = [0, -99, 1, 101];
 const convex_90_position = [-101, -100, -99, 0];
 const convex_180_position = [-101, -1, 0, 99];
@@ -41,11 +46,11 @@ const convex_270_position = [0, 99, 100, 101];
 
 // ブロックの全タイプ
 const block_types = [
-    'stick',
-    'L',
-    'thumb',
-    'snake',
-    'convex',
+    'stick', // 棒型
+    'L', // L字型
+    'thumb', // 親指型
+    'snake', // ヘビ型
+    'convex', // 凸型
 ];
 
 // ローテーションのindex（0～3）のデフォルト値の設定

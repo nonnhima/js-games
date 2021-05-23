@@ -1,7 +1,3 @@
-const max_height = 22; // 縦22マス
-const max_width = 12; // 横12マス
-
-
 $(() => {
 
     // メインボードを出力する
