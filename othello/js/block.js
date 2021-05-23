@@ -1,14 +1,14 @@
-$(() => {
-    let next_color, before_color, player_color, enemy_color;
-    // 石のおける範囲を取得するためのリストを宣言
-    let can_set_stone = [], sround_stone_array = [];
-    // 待ち時間の設定
-    let settime_seconds = 800;
-    // スキップカウントの初期設定
-    let player_skip = 0, enemy_skip = 0;
-    // ゲームが終了したかどうかの判定の初期設定
-    let game_set = false;
+let next_color, before_color, player_color, enemy_color;
+// 石のおける範囲を取得するためのリストを宣言
+let can_set_stone = [], sround_stone_array = [];
+// 待ち時間の設定
+let settime_seconds = 800;
+// スキップカウントの初期設定
+let player_skip = 0, enemy_skip = 0;
+// ゲームが終了したかどうかの判定の初期設定
+let game_set = false;
 
+$(() => {
     // 先攻/後攻の選択ポップアップを表示
     selectPlayerPopup();
 
