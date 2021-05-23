@@ -1,6 +1,8 @@
+import {startTimer} from '../../timer.js';
+// ペアになるカードの枚数を宣言
+export const total_pair_count = 12;
+
 $(() => {
-    // ペアになるカードの枚数を宣言
-    total_pair_count = 12;
     // ペアになるカードの枚数分の数字の配列を作成
     let numbers = Array(total_pair_count).fill(0).map((v, i) => i + 1);
     // 作成した配列をコピーして繋げる。同じ数字が２つずつ格納されている状態。

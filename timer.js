@@ -11,7 +11,7 @@ function startTimer() {
      * タイマーのリセット
      **/
     addTime = 0;
-    millisec = sec100 = sec = min = hour = 0;
+    millisec = sec100 = sec = min = 0;
     // 戻り値は分のため60で割る
     gmt = new Date().getTimezoneOffset() / 60;
     timerId = setTimeout(runTimer, 10);
@@ -57,7 +57,7 @@ function runTimer() {
      **/
     // スタートからの差分をとる
     nowTime = new Date().getTime();
-    diff = new Date(nowTime - startTime);
+    const diff = new Date(nowTime - startTime);
     // ミリ秒、100分の1秒、秒、分を設定
     millisec = diff.getMilliseconds();
     sec100 = Math.floor(millisec / 10);
@@ -68,3 +68,5 @@ function runTimer() {
     drawTime();
     timerId = setTimeout(runTimer, 10);
 }
+
+export {startTimer, stopTimer, sec, min};
